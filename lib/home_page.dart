@@ -60,8 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     } catch (e) {
       // Handle any potential errors during widget build
-      print('Error during widget build: $e');
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Error occurred. Please try again.'),
         ),
@@ -71,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildOptionContainer(String text) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       width: 200,
       height: 100,
       decoration: BoxDecoration(
@@ -81,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
           ),

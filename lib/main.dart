@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:secureshut/home_page.dart';
+import 'package:secureshut/login_page.dart';
+import 'package:secureshut/signup_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -23,7 +25,17 @@ class MyApp extends StatelessWidget {
           selectedItemColor: Colors.white,
         ),
       ),
-      home: const MyHomePage(title: 'SS'),
+      // Define routes
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'login_page',
+      routes: {
+        'login_page':(context) => const Mylogin() ,
+        // Add other routes here if needed
+        'signup_page':(context) => const Mysign_up(),
+      },
+      // Use initialRoute or home to specify the initial route
+      // initialRoute: '/',
+      // home: MyHomePage(title: 'SS'),
     );
   }
 }
