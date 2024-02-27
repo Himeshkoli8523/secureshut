@@ -12,12 +12,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Placeholder'),
-    Text('Index 1: Placeholder'),
-    Text('Index 2: Placeholder'),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -26,112 +20,72 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    try {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Container(
+          color: Colors.grey[300], // Gray background color
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildOptionContainer('Secure Shut'),
+              _buildOptionContainer('Add Contacts'),
+              _buildOptionContainer('Pictures'),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_fire_department_rounded,
+                color: Colors.orange,
+                size: 48.0,
+              ),
+              label: 'Fire',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      );
+    } catch (e) {
+      // Handle any potential errors during widget build
+      print('Error during widget build: $e');
+      return Scaffold(
+        body: Center(
+          child: Text('Error occurred. Please try again.'),
+        ),
+      );
+    }
+  }
+
+  Widget _buildOptionContainer(String text) {
+    return Container(
+      margin: EdgeInsets.all(20),
+      width: 200,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.deepOrange, // Color of the rectangle
+        borderRadius: BorderRadius.circular(20.0), // Rounded corners
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
           ),
-          // box for fake shutdown
-          Positioned(
-            left: 20, // Specify x coordinate
-            top: 50, // Specify y coordinate
-            child: Container(
-              width: 200,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.deepOrange, // Color of the rectangle
-                borderRadius: BorderRadius.circular(20.0), // Rounded corners
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Fake Shutdown', 
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // box for add contacts
-          Positioned(
-            left: 90, // Specify x coordinate
-            top: 250, // Specify y coordinate for the second block
-            child: Container(
-              width: 200,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.deepOrange, // Color of the rectangle
-                borderRadius: BorderRadius.circular(20.0), // Rounded corners
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Add Contacts', 
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // box for pictures
-          Positioned(
-            left: 140, // Specify x coordinate for the third block
-            top: 450, // Specify y coordinate for the third block
-            child: Container(
-              width: 200,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.deepOrange, // Color of the rectangle
-                borderRadius: BorderRadius.circular(20.0), // Rounded corners
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pictures', 
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_fire_department_rounded,
-              color: Colors.orange,
-              size: 48.0,
-            ),
-            label: 'Fire',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

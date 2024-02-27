@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'secureshut',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.grey,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepOrange,
           foregroundColor: Colors.white,
@@ -22,11 +22,6 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.deepOrange,
           selectedItemColor: Colors.white,
         ),
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.deepOrange,
-          onPrimary: Colors.white,
-        ),
-        useMaterial3: true,
       ),
       home: const MyHomePage(title: 'SS'),
     );
