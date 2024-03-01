@@ -1,100 +1,223 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'forgot_page.dart';
+import 'signup_page.dart';
+import 'home_page.dart'; 
 
-class Mylogin extends StatefulWidget {
-  const Mylogin({Key? key}) : super(key: key);
+class MyLogin extends StatefulWidget {
+  const MyLogin({Key? key});
 
   @override
-  State<Mylogin> createState() => _MyloginState();
+  State<MyLogin> createState() => _MyLoginState();
 }
 
-class _MyloginState extends State<Mylogin> {
+class _MyLoginState extends State<MyLogin> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Color _emailBorderColor = Colors.grey; // Default border color for email field
+
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
+
+        // Show pop-up dialog for successful login
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Login Successful'),
+              content: const Text('You have been successfully logged in.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Home')));
+                     // Close the dialog
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+
+        // Navigate to home page on successful login
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage(title: 'Home')), // Assuming MyHomePage is defined correctly
+        );
+      } catch (e) {
+        // Handle specific authentication errors and display user-friendly messages
+        String errorMessage = 'An error occurred during login';
+        if (e is FirebaseAuthException) {
+          switch (e.code) {
+            case 'user-not-found':
+              errorMessage = 'User not found';
+              break;
+            case 'wrong-password':
+              errorMessage = 'Invalid password';
+              break;
+            default:
+              errorMessage = 'Authentication failed';
+          }
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300], // Set background color to gray
-      body: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 35, top: 130),
-            child: const Text(
-              'Welcome to SecureShut!',
-              style: TextStyle(color: Colors.deepOrange, fontSize: 33),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3, right: 35, left: 35),
-            child: Align(
-              alignment: Alignment.centerLeft, // Align content to the left
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Colors.grey[300],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 130),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Welcome to SecureShut!',
+                style: TextStyle(color: Colors.deepOrange, fontSize: 33),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 30),
+              MouseRegion(
+                onEnter: (_) {
+                  setState(() {
+                    _emailBorderColor = Colors.deepOrange; // Change border color on hover
+                  });
+                },
+                onExit: (_) {
+                  setState(() {
+                    _emailBorderColor = Colors.grey; // Reset border color
+                  });
+                },
+                child: TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: _emailBorderColor), // Dynamic border color
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.deepOrange),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email cannot be empty';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.deepOrange),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Password cannot be empty';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.white, // Set text field background color to white
-                      hintText: 'Email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.deepOrange), // Set focused border color to orange
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                  ElevatedButton(
+                    onPressed: login,
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  const SizedBox(height: 50),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white, // Set text field background color to white
-                      hintText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.deepOrange), // Set focused border color to orange
-                        borderRadius: BorderRadius.circular(20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyForgot()),
+                      );
+                    },
+                    child: const Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 20,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to the ends
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          // Add sign-in logic here
-                        },
-                        child: Text(
-                          'Sign in', 
-                          style: TextStyle(
-                            color: Colors.deepOrange, 
-                            fontSize: 25, 
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // Add forgot password logic here
-                        },
-                        child: Text(
-                          'Forgot password?',
-                          style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontSize: 20,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
-            ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MYSignUp()),
+                      );
+                    },
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: MyLogin(),
+  ));
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "827204186735",
+    "firebase_url": "https://shut-6276a-default-rtdb.firebaseio.com",
+    "project_id": "shut-6276a",
+    "storage_bucket": "shut-6276a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827204186735:android:788666b69b11e1c325139a",
+        "android_client_info": {
+          "package_name": "com.example.secureshut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827204186735-v4ekoosl4l627fs61bessntqej0o0ogm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLwD4WAEJe-hqcKA2oGzdKYFbr0EmuopU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827204186735-v4ekoosl4l627fs61bessntqej0o0ogm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827204186735-c3gd3onu6quea8va7maavqlik2hjnbr1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.secureshut.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
