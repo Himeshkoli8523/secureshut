@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secureshut/secure_s.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -43,11 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_fire_department_rounded,
+              icon: Icon(
+                Icons.local_fire_department_rounded,
                 color: Colors.orange,
                 size: 48.0,
               ),
-              label: 'Fire',
+              label: 'SS',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
@@ -55,7 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
           currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+          onTap: (index) {
+            if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MySecure()),
+              );
+            } else {
+              _onItemTapped(index);
+            }
+          },
         ),
       );
     } catch (e) {

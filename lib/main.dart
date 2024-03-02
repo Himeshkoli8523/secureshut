@@ -35,8 +35,10 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login_page',
       routes: {
         'login_page':(context) => const MyLogin() ,
+        
         // Add other routes here if needed
         'signup_page':(context) =>  MYSignUp(),
+
       },
       // Use initialRoute or home to specify the initial route
       // initialRoute: '/',

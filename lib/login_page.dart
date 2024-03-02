@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'forgot_page.dart';
-import 'signup_page.dart';
-import 'home_page.dart'; 
+import 'package:secureshut/forgot_page.dart';
+import 'package:secureshut/home_page.dart';
+import 'package:secureshut/signup_page.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key});
@@ -12,9 +12,9 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController(); // Controller for email text field
+  final TextEditingController _passwordController = TextEditingController(); // Controller for password text field
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Key for the login form
 
   Color _emailBorderColor = Colors.grey; // Default border color for email field
 
@@ -207,17 +207,8 @@ class _MyLoginState extends State<MyLogin> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 }
 
 void main() {
-  runApp(const MaterialApp(
-    home: MyLogin(),
-  ));
+  runApp(const MyLogin());
 }
