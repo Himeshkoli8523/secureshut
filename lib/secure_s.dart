@@ -8,6 +8,9 @@ class MySecure extends StatefulWidget {
 }
 
 class _MySecureState extends State<MySecure> {
+  final TextEditingController _mobileNumberController = TextEditingController();
+  String? _mobileNumber;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +32,51 @@ class _MySecureState extends State<MySecure> {
         ),
         padding: const EdgeInsets.all(16), // Optional: Add padding
         margin: const EdgeInsets.all(16), // Optional: Add margin
-        child: const Center(
-          child: Text(
-            'hello word',
-            style: TextStyle(fontSize: 18),
-          ),
+        child: Column(
+          children: [
+            TextField(
+              controller: _mobileNumberController,
+              keyboardType: TextInputType.phone,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                labelText: 'Enter Mobile Number',
+                counterText: '',
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _mobileNumber != null
+                    ? Text(
+                        'S.O.S No.: $_mobileNumber',
+                        style: const TextStyle(fontSize: 16),
+                      )
+                    : Container(),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      String mobileNumber = _mobileNumberController.text;
+                      if (mobileNumber.length == 10) {
+                        _mobileNumber = mobileNumber;
+                        _mobileNumberController.clear();
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.add_circle_rounded, size: 40),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _mobileNumberController.dispose();
+    super.dispose();
   }
 }
 

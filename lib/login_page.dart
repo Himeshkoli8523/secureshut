@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:secureshut/forgot_page.dart';
@@ -24,6 +26,7 @@ class _MyLoginState extends State<MyLogin> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text,
+          
         );
 
         // Show pop-up dialog for successful login
@@ -37,7 +40,7 @@ class _MyLoginState extends State<MyLogin> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'Home')));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')));
                      // Close the dialog
                   },
                   child: const Text('OK'),

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:secureshut/secure_s.dart';
+import 'package:secureshut/setting_page.dart';
+
+import 'secure_s.dart'; // Import the SettingsPage class
 
 class MyHomePage extends StatefulWidget {
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({
+    super.key,
+    required this.title,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -25,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          automaticallyImplyLeading: false,
         ),
         body: Container(
           color: Colors.grey[300], // Gray background color
@@ -32,7 +38,16 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildOptionContainer('Secure Shut'),
-              _buildOptionContainer('Add Contacts'),
+              // Handle action for "Secure Shut" button
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MySecure()),
+                  );
+                },
+                child: _buildOptionContainer('Add Contacts'),
+              ),
               _buildOptionContainer('Pictures'),
             ],
           ),
@@ -58,11 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           currentIndex: _selectedIndex,
           onTap: (index) {
-            if (index == 1) {
+            if (index == 2) {
+              // Check if the Settings icon is pressed
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MySecure()),
+                MaterialPageRoute(
+                    builder: (context) => const SettingsPage(
+                          title: 'settings',
+                        )), // Navigate to SettingsPage
               );
+            } else if (index == 1) {
+              // Check if the SS icon is pressed
             } else {
               _onItemTapped(index);
             }
