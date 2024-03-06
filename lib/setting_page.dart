@@ -21,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Text(widget.title),
         backgroundColor: Colors.deepOrange,
       ),
+      backgroundColor: Colors.grey[300], // Set lighter background color
       body: ListView(
         children: [
           GestureDetector(
@@ -28,7 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
               // Navigate to the account settings page
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AccountSettingsPage()),
+                MaterialPageRoute(
+                    builder: (context) => const AccountSettingsPage()),
               );
             },
             child: Container(
@@ -38,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               child: const ListTile(
                 leading: Icon(Icons.person), // Add icon for ListTile
-                title: Text('Account'),
+                title: Text('Account settings'),
               ),
             ),
           ),
@@ -49,7 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class AccountSettingsPage extends StatelessWidget {
-  const AccountSettingsPage({super.key});
+  const AccountSettingsPage({super.key, Key? key2, Key? key1});
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +60,21 @@ class AccountSettingsPage extends StatelessWidget {
         title: const Text('Account Settings'),
         backgroundColor: Colors.deepOrange,
       ),
+      backgroundColor: Colors.grey[300], // Set background color of Scaffold
       body: Container(
-        color: Colors.grey[300], // Set background color
-        child: Center(
+        color: Colors.grey[300], // Set background color of Container
+        child: Align(
+          alignment: Alignment.topCenter,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Account Settings'),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50), // Add space above the Row
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 80), // Add space using SizedBox
+                ],
+              ),
               ElevatedButton(
                 onPressed: () async {
                   // Implement logout functionality here
@@ -73,7 +82,9 @@ class AccountSettingsPage extends StatelessWidget {
                     await FirebaseAuth.instance.signOut();
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyLogin()), // Navigate to login page
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const MyLogin()), // Navigate to login page
                     );
                   } catch (e) {
                     print("Error signing out: $e");
