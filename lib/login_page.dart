@@ -53,7 +53,7 @@ class _MyLoginState extends State<MyLogin> {
         // Navigate to home page on successful login
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage(title: 'Home')), // Assuming MyHomePage is defined correctly
+          MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')), // Assuming MyHomePage is defined correctly
         );
       } catch (e) {
         // Handle specific authentication errors and display user-friendly messages

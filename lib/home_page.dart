@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:secureshut/bottom_navigation_bar.dart.dart';
+import 'package:secureshut/permissions.dart';
 import 'package:secureshut/setting_page.dart';
-
 import 'secure_s.dart'; // Import the SettingsPage class
 
 class MyHomePage extends StatefulWidget {
   final String title;
 
   const MyHomePage({
-    super.key,
+    Key? key,
     required this.title,
-  });
+  }) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -22,6 +23,33 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SettingsPage(title: 'Settings'),
+        ),
+      );
+    } else if (index == 1) {
+      // Handle navigation for the second tab (if needed)
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AddPermissionScreen(),
+        ),
+      );
+    } else {
+      // Handle navigation for the first tab (if needed)
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MyHomePage(title: 'SS'),
+        ),
+      );
+    }
   }
 
   @override
@@ -52,42 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.local_fire_department_rounded,
-                color: Colors.orange,
-                size: 48.0,
-              ),
-              label: 'SS',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            if (index == 2) {
-              // Check if the Settings icon is pressed
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SettingsPage(
-                          title: 'settings',
-                        )), // Navigate to SettingsPage
-              );
-            } else if (index == 1) {
-              // Check if the SS icon is pressed
-            } else {
-              _onItemTapped(index);
-            }
-          },
+        bottomNavigationBar: MyBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
         ),
       );
     } catch (e) {

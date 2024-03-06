@@ -53,7 +53,8 @@ class AuthenticationWrapper extends StatelessWidget {
         }
 
         if (snapshot.hasData) {
-          return const MyHomePage(title: 'SS'); // Navigate to home page if user is authenticated
+          return const 
+          MyHomePage(title: 'SS'); // Navigate to home page if user is authenticated
         } else {
           return const MyLogin(); // Navigate to login page if user is not authenticated
         }
