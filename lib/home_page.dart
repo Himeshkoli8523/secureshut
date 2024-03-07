@@ -8,9 +8,9 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   const MyHomePage({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -32,8 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     } else if (index == 1) {
-      // Handle navigation for the second tab (if needed)
-
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -42,20 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     } else {
       // Handle navigation for the first tab (if needed)
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MyHomePage(title: 'SS'),
-        ),
-      );
+      // In this case, do nothing as we are already on the home screen.
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    try {
-      return Scaffold(
+    return WillPopScope(
+      onWillPop: () async => false, // Disable back button
+      child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
           automaticallyImplyLeading: false,
@@ -84,15 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
         ),
-      );
-    } catch (e) {
-      // Handle any potential errors during widget build
-      return const Scaffold(
-        body: Center(
-          child: Text('Error occurred. Please try again.'),
-        ),
-      );
-    }
+      ),
+    );
   }
 
   Widget _buildOptionContainer(String text) {

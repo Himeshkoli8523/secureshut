@@ -7,12 +7,11 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize Firebase with the default options for the current platform.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
+
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -53,8 +52,7 @@ class AuthenticationWrapper extends StatelessWidget {
         }
 
         if (snapshot.hasData) {
-          return const 
-          MyHomePage(title: 'SS'); // Navigate to home page if user is authenticated
+          return const MyHomePage(title: 'SS'); // Navigate to home page if user is authenticated
         } else {
           return const MyLogin(); // Navigate to login page if user is not authenticated
         }

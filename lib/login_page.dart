@@ -7,16 +7,19 @@ import 'package:secureshut/home_page.dart';
 import 'package:secureshut/signup_page.dart';
 
 class MyLogin extends StatefulWidget {
-  const MyLogin({Key? key});
+  const MyLogin({Key? key}) : super(key: key);
 
   @override
   State<MyLogin> createState() => _MyLoginState();
 }
 
 class _MyLoginState extends State<MyLogin> {
-  final TextEditingController _emailController = TextEditingController(); // Controller for email text field
-  final TextEditingController _passwordController = TextEditingController(); // Controller for password text field
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Key for the login form
+  final TextEditingController _emailController =
+      TextEditingController(); // Controller for email text field
+  final TextEditingController _passwordController =
+      TextEditingController(); // Controller for password text field
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // Key for the login form
 
   Color _emailBorderColor = Colors.grey; // Default border color for email field
 
@@ -26,7 +29,6 @@ class _MyLoginState extends State<MyLogin> {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text,
-          
         );
 
         // Show pop-up dialog for successful login
@@ -40,8 +42,15 @@ class _MyLoginState extends State<MyLogin> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')));
-                     // Close the dialog
+                    Future.delayed(const Duration(seconds: 2), () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyHomePage(title: 'Home'),
+                        ),
+                      );
+                    });
+                    // Close the dialog
                   },
                   child: const Text('OK'),
                 ),
@@ -53,7 +62,9 @@ class _MyLoginState extends State<MyLogin> {
         // Navigate to home page on successful login
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')), // Assuming MyHomePage is defined correctly
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(
+                  title: 'Home')), // Assuming MyHomePage is defined correctly
         );
       } catch (e) {
         // Handle specific authentication errors and display user-friendly messages
@@ -101,7 +112,8 @@ class _MyLoginState extends State<MyLogin> {
               MouseRegion(
                 onEnter: (_) {
                   setState(() {
-                    _emailBorderColor = Colors.deepOrange; // Change border color on hover
+                    _emailBorderColor =
+                        Colors.deepOrange; // Change border color on hover
                   });
                 },
                 onExit: (_) {
@@ -116,7 +128,8 @@ class _MyLoginState extends State<MyLogin> {
                     hintText: 'Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: _emailBorderColor), // Dynamic border color
+                      borderSide: BorderSide(
+                          color: _emailBorderColor), // Dynamic border color
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.deepOrange),
