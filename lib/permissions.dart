@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:app_settings/app_settings.dart';
 
 class AddPermissionScreen extends StatelessWidget {
   const AddPermissionScreen({super.key, Key? key1});
@@ -78,6 +79,26 @@ class AddPermissionScreen extends StatelessWidget {
               icon: Icons.accessibility,
               onPressed: () {
                 // Handle accessibility permission
+
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text('Some information goes here.'),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () => AppSettings.openAppSettings(type: AppSettingsType.accessibility),
+                            child: const Text('Navigate'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
             ),
             const SizedBox(height: 24.0),
