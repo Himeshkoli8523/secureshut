@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -79,7 +79,6 @@ class AddPermissionScreen extends StatelessWidget {
               icon: Icons.accessibility,
               onPressed: () {
                 // Handle accessibility permission
-
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
@@ -113,17 +112,36 @@ class AddPermissionScreen extends StatelessWidget {
             _PermissionItem(
               permissionName: 'Microphone', // Microphone permission block
               icon: Icons.mic,
-              onPressed: () {
-                // Handle microphone permission
+              onPressed: () async {
+                final status = await Permission.microphone.request();
+                if (status.isGranted) {
+                  // Permission granted, proceed with microphone-related functionality
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Microphone Permission Granted'),
+                      content: const Text('You can now use the microphone.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  // Permission denied, show an explanatory message
+                  // and provide a way to request it again
+                  print('Microphone permission denied.');
+                }
               },
             ),
             const SizedBox(height: 24.0),
             _PermissionItem(
               permissionName: 'Device Admin', // Device admin permission block
               icon: Icons.admin_panel_settings,
-              onPressed: () {
-                // Handle device admin permission
-              },
+              onPressed: () => AppSettings.openAppSettings(type: AppSettingsType.device),
+              // Handle device admin permission
             ),
           ],
         ),

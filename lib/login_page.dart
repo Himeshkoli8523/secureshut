@@ -7,21 +7,19 @@ import 'package:secureshut/home_page.dart';
 import 'package:secureshut/signup_page.dart';
 
 class MyLogin extends StatefulWidget {
-  const MyLogin({Key? key}) : super(key: key);
+  const MyLogin({super.key});
 
   @override
   State<MyLogin> createState() => _MyLoginState();
 }
 
 class _MyLoginState extends State<MyLogin> {
-  final TextEditingController _emailController =
-      TextEditingController(); // Controller for email text field
-  final TextEditingController _passwordController =
-      TextEditingController(); // Controller for password text field
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>(); // Key for the login form
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Color _emailBorderColor = Colors.grey; // Default border color for email field
+  Color _emailBorderColor = Colors.grey;
+  bool _isObscure = true;
 
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
@@ -31,7 +29,6 @@ class _MyLoginState extends State<MyLogin> {
           password: _passwordController.text,
         );
 
-        // Show pop-up dialog for successful login
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -50,7 +47,6 @@ class _MyLoginState extends State<MyLogin> {
                         ),
                       );
                     });
-                    // Close the dialog
                   },
                   child: const Text('OK'),
                 ),
@@ -59,15 +55,11 @@ class _MyLoginState extends State<MyLogin> {
           },
         );
 
-        // Navigate to home page on successful login
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const MyHomePage(
-                  title: 'Home')), // Assuming MyHomePage is defined correctly
+          MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
         );
       } catch (e) {
-        // Handle specific authentication errors and display user-friendly messages
         String errorMessage = 'An error occurred during login';
         if (e is FirebaseAuthException) {
           switch (e.code) {
@@ -80,6 +72,8 @@ class _MyLoginState extends State<MyLogin> {
             default:
               errorMessage = 'Authentication failed';
           }
+        } else {
+          errorMessage = 'Network error occurred. Please check your internet connection.';
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -112,13 +106,12 @@ class _MyLoginState extends State<MyLogin> {
               MouseRegion(
                 onEnter: (_) {
                   setState(() {
-                    _emailBorderColor =
-                        Colors.deepOrange; // Change border color on hover
+                    _emailBorderColor = Colors.deepOrange;
                   });
                 },
                 onExit: (_) {
                   setState(() {
-                    _emailBorderColor = Colors.grey; // Reset border color
+                    _emailBorderColor = Colors.grey;
                   });
                 },
                 child: TextFormField(
@@ -128,8 +121,7 @@ class _MyLoginState extends State<MyLogin> {
                     hintText: 'Email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: _emailBorderColor), // Dynamic border color
+                      borderSide: BorderSide(color: _emailBorderColor),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.deepOrange),
@@ -147,10 +139,21 @@ class _MyLoginState extends State<MyLogin> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: _isObscure,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
                   hintText: 'Password',
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                    child: Icon(
+                      _isObscure ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -203,7 +206,7 @@ class _MyLoginState extends State<MyLogin> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MYSignUp()),
+                        MaterialPageRoute(builder: (context) => const MYSignUp()),
                       );
                     },
                     child: const Text(

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:secureshut/bottom_navigation_bar.dart.dart';
 import 'package:secureshut/permissions.dart';
@@ -70,6 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: _buildOptionContainer('Add Contacts'),
               ),
               _buildOptionContainer('Pictures'),
+              // want to add pictures page is on pending
+              GestureDetector(
+                onTap: () => MaterialApp.router().,
+              )
             ],
           ),
         ),
