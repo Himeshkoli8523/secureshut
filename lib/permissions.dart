@@ -87,7 +87,7 @@ class AddPermissionScreen extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text('Some information goes here.'),
+                          const Text('Navigate to accesibility settings and turn on for secure shut'),
                           const SizedBox(height: 16),
                           ElevatedButton(
                             onPressed: () => AppSettings.openAppSettings(type: AppSettingsType.accessibility),

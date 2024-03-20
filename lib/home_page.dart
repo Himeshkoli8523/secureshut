@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
+import 'package:photo_manager/photo_manager.dart';
 
+import 'picture_page.dart';
 import 'package:flutter/material.dart';
 import 'package:secureshut/bottom_navigation_bar.dart.dart';
 import 'package:secureshut/permissions.dart';
@@ -71,11 +73,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: _buildOptionContainer('Add Contacts'),
               ),
-              _buildOptionContainer('Pictures'),
-              // want to add pictures page is on pending
               GestureDetector(
-                onTap: () => MaterialApp.router().,
-              )
+                onTap: () {
+                  PhotoManager.requestPermissionExtend().then((PermissionState state) {
+                    if (state.isAuth) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const GalleryPage(),
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please provide permission for camera'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  });
+                },
+                child: _buildOptionContainer('Pictures'),
+              ),
             ],
           ),
         ),

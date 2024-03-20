@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class MyForgot extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
 
-  MyForgot({Key? key});
+  MyForgot({super.key, Key? key1});
 
   @override
   Widget build(BuildContext context) {

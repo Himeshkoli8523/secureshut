@@ -70,10 +70,10 @@ class _MyLoginState extends State<MyLogin> {
               errorMessage = 'Invalid password';
               break;
             default:
-              errorMessage = 'Authentication failed';
+              errorMessage = 'Network error occurred. Please check your internet connection.';
           }
         } else {
-          errorMessage = 'Network error occurred. Please check your internet connection.';
+          errorMessage = 'Authentication failed';
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
