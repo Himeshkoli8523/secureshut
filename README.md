@@ -57,14 +57,14 @@ SecureShut:
 ---
 
 ## 📂 Project Structure
-lib/
+
+
+<pre> ```lib/
 ├── screens/
 │ └── add_permission_screen.dart
 ├── widgets/
 │ └── permission_item.dart
-└── main.dart
-
-
+└── main.dart``` </pre>
 ---
 
 ## 🔐 Required Permissions
@@ -89,7 +89,28 @@ SecureShut requires the following permissions:
 
 Verify setup:
 ```bash
-flutter doctor
+flutter doctor 
 
 
+###▶️ Running the Application
+
+Clone the repository:
+
+git clone https://github.com/your-username/secureshut.git
+
+
+Navigate to project directory:
+
+cd secureshut
+
+
+Install dependencies:
+
+flutter pub get
+
+
+Run the app:
+
+flutter run
+```
 
