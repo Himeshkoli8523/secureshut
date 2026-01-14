@@ -1,101 +1,60 @@
-SecureShut is a mobile security application designed to protect a smartphone from unauthorized access when it is stolen, snatched, or forcefully used.
+# 🔐 SecureShut – Anti-Theft Device Protection App
 
-When an intruder tries to power off or misuse the device, SecureShut tricks the attacker by displaying a fake shutdown screen, making them believe the device has been successfully turned off.
-In reality, the device remains active in the background and silently performs security actions.
+## 📌 Overview
 
-At the same moment, the app:
+**SecureShut** is a mobile security application designed to protect smartphones from **unauthorized access during theft or forceful usage**.  
+When an intruder attempts to power off or misuse the device, SecureShut **displays a fake shutdown screen** to deceive the attacker while secretly performing security actions in the background.
 
-Captures a front camera image of the person trying to access the device
+The app captures critical evidence and sends it to a **pre-configured SOS contact**, helping the owner track and identify the intruder even without internet access.
 
-Fetches the current location
+---
 
-Collects battery status
+## 🚨 Problem Statement
 
-Sends all this information via SMS to a pre-saved SOS contact number
+When a smartphone is stolen or snatched:
+- The thief immediately powers off the device
+- Tracking becomes impossible
+- Personal data is compromised
 
-This allows the device owner to identify the intruder and track the stolen device, even without internet access.
+**SecureShut solves this problem** by preventing real shutdown and triggering hidden security actions.
 
-🎯 Core Objectives
+---
 
-Prevent unauthorized device shutdown
+## 💡 Solution
 
-Fool intruders using a fake power-off screen
+SecureShut:
+1. Detects unauthorized power-off attempts
+2. Shows a **fake shutdown screen**
+3. Keeps the device running silently
+4. Captures the intruder’s photo using the front camera
+5. Fetches live location and battery status
+6. Sends all details via **SMS to SOS contact**
 
-Capture evidence during theft attempts
+---
 
-Send real-time alerts to trusted contacts
+## ✨ Key Features
 
-Enable device tracking after theft
+- 🔒 Fake shutdown screen to fool intruders
+- 📸 Automatic front camera capture
+- 📍 Live location tracking
+- 🔋 Battery status reporting
+- 📩 SOS alert via SMS
+- 🛡️ Accessibility & Device Admin protection
+- 📱 Offline functionality (SMS-based alerts)
 
-🚨 How SecureShut Works (Concept Flow)
+---
 
-Device is snatched or accessed without permission
+## 🛠️ Tech Stack
 
-Intruder tries to power off the phone
+- **Flutter**
+- **Dart**
+- **Android SDK**
+- **permission_handler**
+- Android Accessibility Services
+- Device Admin APIs
+- Location & SMS Services
 
-SecureShut shows a fake shutdown screen
+---
 
-App runs silently in background
+## 📂 Project Structure
 
-Front camera captures intruder’s photo
-
-Device location and battery level are fetched
-
-SMS is sent to SOS contact containing:
-
-Intruder photo
-
-Live location
-
-Battery percentage
-
-Owner can track and take action
-
-✨ Features
-Implemented / In Progress
-
-Permission management screen
-
-Clickable permission blocks
-
-Accessibility, Camera, Location, Microphone setup
-
-Clean and simple UI
-
-Planned Features
-
-Fake shutdown screen simulation
-
-Background camera capture
-
-SMS alert system
-
-SOS contact management
-
-Battery & location tracking
-
-Device admin & accessibility protection
-
-Auto-trigger on power button misuse
-
-🛠️ Tech Stack
-
-Flutter
-
-Dart
-
-Android
-
-permission_handler
-
-Android Accessibility Services
-
-Device Admin APIs (planned)
-
-SMS & Location services
-lib/
- ├── screens/
- │    └── add_permission_screen.dart
- ├── widgets/
- │    └── permission_item.dart
- └── main.dart
