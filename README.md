@@ -57,4 +57,39 @@ SecureShut:
 ---
 
 ## 📂 Project Structure
+lib/
+├── screens/
+│ └── add_permission_screen.dart
+├── widgets/
+│ └── permission_item.dart
+└── main.dart
+
+
+---
+
+## 🔐 Required Permissions
+
+SecureShut requires the following permissions:
+
+- Camera – capture intruder image
+- Location – track device location
+- Microphone – security triggers
+- Accessibility – monitor power button actions
+- Device Admin – block actual shutdown
+- SMS – send SOS alerts
+
+---
+
+## ⚙️ Installation Guide
+
+### Prerequisites
+- Flutter SDK installed
+- Android Studio / VS Code
+- Android Emulator or Physical Device
+
+Verify setup:
+```bash
+flutter doctor
+
+
 
